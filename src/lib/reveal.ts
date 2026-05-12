@@ -16,6 +16,7 @@ const REVEAL_SELECTORS = [
   ".section__head",
   ".docs-content > section",
   ".docs-content > section > *",
+  "footer.footer",
 ];
 
 function markIndex(parent: Element, childSel: string) {
