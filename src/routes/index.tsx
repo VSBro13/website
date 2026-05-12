@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Ticker } from "@/components/Ticker";
+import { Typewriter } from "@/components/Typewriter";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,10 +29,10 @@ function Home() {
             <span className="label fade-up">// OPENBOX / V1.0</span>
             <span className="label fade-up">STATUS: <span style={{ color: "var(--green)" }}>ONLINE</span></span>
           </div>
-          <h1 className="display h1 fade-up fade-up--1">
-            WHERE<br />BUILDERS<br />MEET.
+          <h1 className="display h1 hero__title">
+            <Typewriter lines={["WHERE", "BUILDERS", "MEET."]} speed={55} />
           </h1>
-          <p className="hero__sub fade-up fade-up--2">
+          <p className="hero__sub hero__sub--delayed">
             A dedicated space for developers, engineers, and creators in tech. Open. Builder-first. No gatekeeping.
           </p>
           <div className="hero__ctas fade-up fade-up--3">

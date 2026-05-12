@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { tiers } from "@/data/socials";
+import { CountUp } from "@/components/CountUp";
 
 export const Route = createFileRoute("/tiers")({
   head: () => ({
@@ -31,10 +32,10 @@ function Tiers() {
         <div className="container">
           <div className="tiers">
             {tiers.map((t) => (
-              <div key={t.name} className={`tier ${"featured" in t && t.featured ? "tier--featured" : ""}`}>
+              <div key={t.name} className={`tier ${"featured" in t && t.featured ? "tier--featured pulse-glow" : ""}`}>
                 <div className="label">// {t.name.toUpperCase()}</div>
                 <div className="tier__name">{t.name}</div>
-                <div className="tier__price">${t.price}</div>
+                <div className="tier__price"><CountUp to={Number(t.price)} prefix="$" /></div>
                 <div className="tier__per">/ month</div>
                 <ul className="tier__perks">
                   {t.perks.map((p) => <li key={p}>{p}</li>)}

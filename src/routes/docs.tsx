@@ -51,7 +51,7 @@ function Docs() {
               <a href="#faq">04 FAQ</a>
             </aside>
 
-            <div className="docs-content">
+            <div className="docs-content terminal-out">
               <section id="join">
                 <h2>01 / How to join</h2>
                 <p>OpenBox runs primarily on Discord. To join:</p>

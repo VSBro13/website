@@ -20,7 +20,7 @@ function Join() {
       <header className="page-header">
         <div className="container">
           <div className="page-header__crumb fade-up">// JOIN</div>
-          <h1 className="display h1 page-header__title fade-up fade-up--1">COME BUILD<br/>WITH US.</h1>
+          <h1 className="display h1 page-header__title fade-up fade-up--1 glitch" data-text="COME BUILD WITH US.">COME BUILD<br/>WITH US.</h1>
           <p className="page-header__sub fade-up fade-up--2">
             Free to join. Show up. Build something. Meet people who do the same.
           </p>
@@ -47,7 +47,7 @@ function Join() {
             </div>
           </div>
 
-          <div className="socials">
+          <div className="socials reveal-from-left">
             {socials.map((s) => (
               <a key={s.name} className="social" href={s.url} target="_blank" rel="noreferrer">
                 <div className="label">// {s.name.toUpperCase()}</div>
