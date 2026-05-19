@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { socials } from "@/data/socials";
-import { SocialIcon } from "@/components/SocialIcon";
+import { SocialIcon, OpenBoxLogo } from "@/components/SocialIcon";
 
 export function Footer() {
   return (
@@ -9,7 +9,7 @@ export function Footer() {
         <div className="footer__grid">
           <div className="footer__col">
             <Link to="/" className="logo">
-              <span className="logo__box" aria-hidden />
+              <OpenBoxLogo size={28} />
               <span className="logo__text">OPENBOX</span>
             </Link>
             <p style={{ color: "var(--muted)", marginTop: 16, fontSize: 13, maxWidth: 320 }}>

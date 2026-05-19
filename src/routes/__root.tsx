@@ -72,6 +72,20 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const saved = localStorage.getItem('ob-theme') || 'black';
+                  const allowed = ['black', 'deep-blue', 'violet', 'slate', 'teal'];
+                  const theme = allowed.includes(saved) ? saved : 'black';
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })()
+            `,
+          }}
+        />
       </head>
       <body>
         {children}

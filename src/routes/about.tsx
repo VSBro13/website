@@ -13,9 +13,10 @@ export const Route = createFileRoute("/about")({
 });
 
 const team = [
-  { name: "Core Team", role: "Founders" },
-  { name: "Maintainers", role: "Community Ops" },
-  { name: "Contributors", role: "Builders" },
+  { name: "Owner", role: "Founder" },
+  { name: "Admins", role: "Super Moderators" },
+  { name: "Community Managers", role: "Moderators" },
+  { name: "Bots", role: "Server Helper" },
 ];
 
 const values = [
@@ -31,7 +32,7 @@ function About() {
       <header className="page-header">
         <div className="container">
           <div className="page-header__crumb fade-up">// ABOUT</div>
-          <h1 className="display h1 page-header__title fade-up fade-up--1">A SPACE<br/>FOR BUILDERS.</h1>
+          <h1 className="display h1 page-header__title fade-up fade-up--1">A SPACE<br />FOR BUILDERS.</h1>
           <p className="page-header__sub fade-up fade-up--2">
             OpenBox is a community for developers, engineers, and creators in tech.
             We're building the place we always wanted to find — open, raw, technical, and built around shipping work.
@@ -128,7 +129,7 @@ function About() {
           <div className="team">
             {team.map((t) => (
               <div key={t.name} className="team__card">
-                <div className="team__avatar" />
+                {/* <div className="team__avatar"> {t.avathar}</div> */}
                 <div className="team__name">{t.name}</div>
                 <div className="team__role">{t.role}</div>
               </div>
