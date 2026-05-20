@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect } from "react";
 import appCss from "../styles.css?url";
+import { seo } from "@/components/SEO";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Cursor } from "@/components/Cursor";
@@ -54,12 +55,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "OpenBox " },
-      { name: "description", content: "A community for developers, engineers, and builders in tech." },
-      { property: "og:title", content: "OpenBox — Where Builders Meet" },
-      { property: "og:description", content: "A community for developers, engineers, and builders in tech." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      ...seo(),
     ],
     links: [{ rel: "stylesheet", href: appCss }],
   }),

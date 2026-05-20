@@ -1,15 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { tiers } from "@/data/socials";
 import { CountUp } from "@/components/CountUp";
+import { seo } from "@/components/SEO";
 
 export const Route = createFileRoute("/tiers")({
   head: () => ({
-    meta: [
-      { title: "Tiers — OpenBox" },
-      { name: "description", content: "Support OpenBox via Patreon. Four tiers, four levels of access." },
-      { property: "og:title", content: "Tiers — OpenBox" },
-      { property: "og:description", content: "Support OpenBox via Patreon. Four tiers, four levels of access." },
-    ],
+    meta: seo({
+      title: "Tiers",
+      description: "Support OpenBox via Patreon. Four tiers, four levels of access.",
+    }),
   }),
   component: Tiers,
 });

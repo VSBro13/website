@@ -1,14 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
+import { seo } from "@/components/SEO";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
-    meta: [
-      { title: "Events — OpenBox" },
-      { name: "description", content: "Upcoming and past community events: hackathons, workshops, competitions, seminars." },
-      { property: "og:title", content: "Events — OpenBox" },
-      { property: "og:description", content: "Upcoming and past community events." },
-    ],
+    meta: seo({
+      title: "Events",
+      description: "Upcoming and past community events: hackathons, workshops, competitions, seminars.",
+    }),
   }),
   component: Events,
 });

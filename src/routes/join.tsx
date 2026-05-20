@@ -2,15 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { socials, tiers } from "@/data/socials";
 import { SocialIcon } from "@/components/SocialIcon";
 import { Ticker } from "@/components/Ticker";
+import { seo } from "@/components/SEO";
 
 export const Route = createFileRoute("/join")({
   head: () => ({
-    meta: [
-      { title: "Join — OpenBox" },
-      { name: "description", content: "Come build with us. Discord, socials, and Patreon support." },
-      { property: "og:title", content: "Join OpenBox" },
-      { property: "og:description", content: "Come build with us. Discord, socials, and Patreon support." },
-    ],
+    meta: seo({
+      title: "Join",
+      description: "Come build with us. Discord, socials, and Patreon support.",
+    }),
   }),
   component: Join,
 });

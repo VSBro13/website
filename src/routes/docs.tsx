@@ -1,14 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { seo } from "@/components/SEO";
 
 export const Route = createFileRoute("/docs")({
   head: () => ({
-    meta: [
-      { title: "Documentation — OpenBox" },
-      { name: "description", content: "Your guide to navigating the OpenBox server structure, roles, rules, bot commands, and support options." },
-      { property: "og:title", content: "Documentation — OpenBox" },
-      { property: "og:description", content: "Your guide to navigating the OpenBox server structure, roles, rules, bot commands, and support options." },
-    ],
+    meta: seo({
+      title: "Documentation",
+      description: "Your guide to navigating the OpenBox server structure, roles, rules, bot commands, and support options.",
+    }),
   }),
   component: Docs,
 });

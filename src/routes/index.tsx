@@ -1,13 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Ticker } from "@/components/Ticker";
 import { Typewriter } from "@/components/Typewriter";
+import { seo } from "@/components/SEO";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      { title: "OpenBox — Where Builders Meet" },
-      { name: "description", content: "A dedicated space for developers, engineers, and creators in tech." },
-    ],
+    meta: seo(),
   }),
   component: Home,
 });
