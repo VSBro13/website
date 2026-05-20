@@ -54,10 +54,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "OpenBox — Where Builders Meet" },
-      { name: "description", content: "A global community for developers, engineers, and builders in tech." },
+      { title: "OpenBox " },
+      { name: "description", content: "A community for developers, engineers, and builders in tech." },
       { property: "og:title", content: "OpenBox — Where Builders Meet" },
-      { property: "og:description", content: "A global community for developers, engineers, and builders in tech." },
+      { property: "og:description", content: "A community for developers, engineers, and builders in tech." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

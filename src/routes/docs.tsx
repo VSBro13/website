@@ -127,7 +127,7 @@ function Docs() {
                 <h2>01 / Getting Started</h2>
                 <h3>What is OpenBox?</h3>
                 <p>
-                  OpenBox is a global collective of developers, engineers, and digital makers.
+                  OpenBox is a collective of developers, engineers, and digital makers.
                   We build in public, we support open systems, and we collaborate software design.
                   We foster absolute technical excellence and deep, peer-to-peer building connections.
                 </p>
