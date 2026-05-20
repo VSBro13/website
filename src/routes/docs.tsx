@@ -23,11 +23,45 @@ const BOT_COMMANDS = [
 ];
 
 const ROLES_LIST = [
-  { name: "Admin", type: "Staff", unlock: "Complete administrative access, system configs, community directives.", acquisition: "Core team selection." },
-  { name: "Mod", type: "Staff", unlock: "Moderation tools, public safety controls, channel management.", acquisition: "Contributor application." },
-  { name: "Contributor", type: "Active", unlock: "Beta testing channel access, code contributions, feedback channels.", acquisition: "Maintain active building." },
-  { name: "Sponsor (Patreon)", type: "Support", unlock: "Premium support tiers, profile badges, custom hex colors.", acquisition: "Patreon tier subscription." },
-  { name: "Member", type: "Standard", unlock: "Base community server text channels, voice hubs, show & tell.", acquisition: "Auto-assigned on join." },
+  // STAFF
+  { category: "STAFF", name: "OWNER", type: "Supreme Leader", unlock: "Full ownership access, server control, permissions management, and final authority over all operations.", acquisition: "Founding owner of the community." },
+  { category: "STAFF", name: "Admin", type: "Executive Staff", unlock: "Advanced moderation powers, server management tools, role handling, and administrative controls.", acquisition: "Appointed by the Owner." },
+  { category: "STAFF", name: "Community Managers", type: "Moderator", unlock: "Community moderation, engagement management, event coordination, and member support.", acquisition: "Appointed by Admin or Owner." },
+
+  // SYSTEM
+  { category: "SYSTEM", name: "MOD-BOT", type: "Automation System", unlock: "Automated moderation, logging, protection systems, and utility commands.", acquisition: "Integrated server bot role." },
+  { category: "SYSTEM", name: "APP", type: "Application System", unlock: "Access to bot integrations, automated systems, and platform-linked services.", acquisition: "Assigned automatically to connected applications." },
+
+  // DEFAULT
+  { category: "DEFAULT", name: "Citizen.", type: "Verified Member", unlock: "Standard verified community access with participation in public discussions and activities.", acquisition: "Automatically assigned to all members on joining." },
+
+  // LEVEL OF EXPERTISE
+  { category: "LEVEL OF EXPERTISE", name: "Explorer, Beginner, Learner, Intermediate, Expert", type: "Level of Expertise Tag", unlock: "A self-selected tag that shows others where you currently stand in your domain. No channel locks or restrictions tied to it.", acquisition: "Via Channels and Roles at the top of the category list." },
+
+  // ACADEMIC YEAR
+  { category: "ACADEMIC YEAR", name: "1st year, 2nd year, 3rd year, 4th year, Alumni", type: "Academic Year Tag", unlock: "A self-selected tag that reflects your current academic standing. Helps members find and connect with peers at the same stage.", acquisition: "Via <code>#roles</code> channel." },
+
+  // INTEREST / DOMAIN
+  { category: "INTEREST / DOMAIN", name: "Dev & Mobile", type: "Technology Division", subRoles: ["Frontend / Backend / Fullstack", "App Dev / iOS / Android", "SWE / SDE"], unlock: "Developer discussions, coding projects, app development resources, and collaboration channels.", acquisition: "Self-selected interest role via <code>#roles</code> channel" },
+  { category: "INTEREST / DOMAIN", name: "AI & Data", type: "Innovation Division", subRoles: ["AI", "Data Scientist / Analyst", "Big Data"], unlock: "Artificial intelligence, machine learning, analytics, and data science focused communities.", acquisition: "Self-selected interest role via <code>#roles</code> channel" },
+  { category: "INTEREST / DOMAIN", name: "Cloud & Infra", type: "Infrastructure Division", subRoles: ["Cloud", "DevOps / Site Reliability", "Embedded Systems", "IoT"], unlock: "Cloud computing, DevOps, backend systems, and infrastructure discussions.", acquisition: "Self-selected interest role via <code>#roles</code> channel" },
+  { category: "INTEREST / DOMAIN", name: "Security", type: "Cyber Defense Division", subRoles: ["Cyber Security"], unlock: "Cybersecurity resources, ethical hacking discussions, and digital safety communities.", acquisition: "Self-selected interest role via <code>#roles</code> channel" },
+  { category: "INTEREST / DOMAIN", name: "Design & UX", type: "Creative Design Division", subRoles: ["Design / Graphics / UI / UX"], unlock: "UI/UX design discussions, branding resources, and creative collaboration spaces.", acquisition: "Self-selected interest role via <code>#roles</code> channel" },
+  { category: "INTEREST / DOMAIN", name: "Creative & Marketing", type: "Media Division", subRoles: ["Marketing", "Social Media / Digital / Content", "SEO"], unlock: "Content creation, branding, social media, and marketing strategy communities.", acquisition: "Self-selected interest role via <code>#roles</code> channel" },
+  { category: "INTEREST / DOMAIN", name: "Web3 & XR", type: "Future Tech Division", subRoles: ["Blockchain", "AR / VR / XR", "Game Dev / C# / Unity / Unreal"], unlock: "Blockchain, Web3, AR/VR, and emerging technology discussions.", acquisition: "Self-selected interest role via <code>#roles</code> channel." },
+  
+  // SUPPORTERS
+  { category: "SUPPORTERS", name: "Server Booster, Kernel, Compiler, Relay, Funder", type: "Supporter Tier", unlock: "Tiered recognition for members who actively support the community. Higher tiers unlock exclusive spaces, visibility, and community privileges.", acquisition: "Assigned by Patreon Bot" },
+
+  // CLUBS & ORGANIZATIONS
+  { category: "CLUBS & ORGANIZATIONS", name: "Club", type: "Campus Organization", unlock: "Club networking, event collaboration, and student organization visibility.", acquisition: "Via onboarding form." },
+  { category: "CLUBS & ORGANIZATIONS", name: "Company", type: "Industry Partner", unlock: "Industry collaboration access, hiring visibility, and partnership discussions.", acquisition: "Via onboarding form." },
+
+  // PARTNERS
+  { category: "PARTNERS", name: "Partner, Partner +, Partner ++", type: "Partner Tier", unlock: "Tiered access for verified partners. Higher tiers unlock greater visibility, collaboration privileges, and network integration.", acquisition: "Through filing the form in <code>#updrade</code> channel." },
+  
+  // NOTIFICATIONS
+  { category: "NOTIFICATIONS", name: "Content Ping, Events in Server, Events in Offline, DNS, Poll", type: "Notification & Utility Roles", unlock: "Opt-in roles to receive specific pings and updates. Pick only what is relevant to you.", acquisition: "Via <code>#roles</code> channel." },
 ];
 
 const FAQS_LIST = [
@@ -206,22 +240,44 @@ function Docs() {
                       </tr>
                     </thead>
                     <tbody>
-                      {ROLES_LIST.map((role) => (
-                        <tr key={role.name}>
-                          <td><strong>{role.name}</strong></td>
-                          <td><code>{role.type}</code></td>
-                          <td>{role.unlock}</td>
-                          <td>{role.acquisition}</td>
-                        </tr>
-                      ))}
+                      {ROLES_LIST.reduce((acc: React.ReactNode[], role, index) => {
+                        const prevRole = index > 0 ? ROLES_LIST[index - 1] : null;
+                        if (!prevRole || prevRole.category !== role.category) {
+                          acc.push(
+                            <tr key={`divider-${role.category}`} className="category-divider">
+                              <td colSpan={4} style={{ background: "var(--background-secondary, #1a1a1a)", textAlign: "center", fontWeight: "bold", padding: "16px 0", letterSpacing: "1px", borderTop: "2px solid var(--border)" }}>
+                                {role.category}
+                              </td>
+                            </tr>
+                          );
+                        }
+                        acc.push(
+                          <tr key={role.name}>
+                            <td>
+                              <strong>{role.name}</strong>
+                              {role.subRoles && (
+                                <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 6 }}>
+                                  {role.subRoles.map(sub => (
+                                    <span key={sub} className="tag" style={{ fontSize: 11, padding: "2px 8px", background: "transparent", border: "1px solid var(--border)", color: "var(--text)", borderRadius: 4 }}>{sub}</span>
+                                  ))}
+                                </div>
+                              )}
+                            </td>
+                            <td><code>{role.type}</code></td>
+                            <td dangerouslySetInnerHTML={{ __html: role.unlock }} />
+                            <td dangerouslySetInnerHTML={{ __html: role.acquisition }} />
+                          </tr>
+                        );
+                        return acc;
+                      }, [])}
                     </tbody>
                   </table>
                 </div>
-                <h3>Role Hierarchy</h3>
+                {/* <h3>Role Hierarchy</h3>
                 <p>
                   Authority is structured bottom-up around builders: <strong>Member</strong> → <strong>Contributor</strong> → <strong>Moderator</strong> → <strong>Admin</strong>.
                   Admins manage architecture and systems, while active Contributors handle community codebases and lead server guides.
-                </p>
+                </p> */}
               </section>
 
               {/* SECTION 4 */}
