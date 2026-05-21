@@ -14,6 +14,7 @@ export function seo({
     "Join the OpenBox Community, a dedicated space for developers, software engineers, and builders in tech to collaborate, share projects, and find career opportunities.";
   const defaultKeywords =
     "OpenBox, Open Box, openBox, open box comm, open box community, openboxcomm, OpenBox community, developer community, tech community, software engineers, builders, coding, programming, developer recruitment, tech jobs";
+  const defaultImage = "https://www.openboxcomm.in/og-default.png";
 
   const metaTags = [
     { title: title ? `${title} | OpenBox Community` : defaultTitle },
@@ -26,12 +27,9 @@ export function seo({
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: title || defaultTitle },
     { name: "twitter:description", content: description || defaultDesc },
+    { property: "og:image", content: image || defaultImage },
+    { name: "twitter:image", content: image || defaultImage },
   ];
-
-  if (image) {
-    metaTags.push({ property: "og:image", content: image });
-    metaTags.push({ name: "twitter:image", content: image });
-  }
 
   return metaTags;
 }
