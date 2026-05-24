@@ -432,7 +432,7 @@ function Docs() {
                 <Link to="/tiers" className="btn btn--ghost" style={{ marginBottom: 32, display: "inline-flex" }}>View Support Tiers →</Link>
                 <h3>How to Upgrade or Renew Your Tier</h3>
                 <p>
-                  Pledge at our Patreon page: <code style={{ color: "var(--green)" }}>patreon.com/openbox</code>.
+                  Pledge at our Patreon page: <code style={{ color: "var(--green)" }}>patreon.com/OpenBoxComm</code>.
                   Once subscribed, link your Discord and Patreon profiles in Patreon settings.
                   For monthly renewals, the system syncs automatically; if you experience delays, simply run <code>/renew</code>
                   to refresh your credentials.

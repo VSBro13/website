@@ -55,7 +55,7 @@ function Tiers() {
             <div className="label">// NOTE</div>
             <p style={{ marginTop: 12, color: "var(--text)" }}>
               All Patreon tiers are recurring monthly. Cancel anytime. Roles are auto-assigned via the Patreon bot once your Patreon is linked to your Discord account.
-              See <a style={{ color: "var(--green)" }} href="/docs">/docs</a> for setup.
+              See <a style={{ color: "var(--green)" }} href="/docs#support-tiers">/docs</a> for setup.
             </p>
           </div>
         </div>

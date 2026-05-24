@@ -17,6 +17,7 @@ import { Route as DocsRouteImport } from './routes/docs'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogDbwRouteImport } from './routes/blog.dbw'
 
 const TiersRoute = TiersRouteImport.update({
   id: '/tiers',
@@ -58,37 +59,45 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogDbwRoute = BlogDbwRouteImport.update({
+  id: '/dbw',
+  path: '/dbw',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/docs': typeof DocsRoute
   '/events': typeof EventsRoute
   '/join': typeof JoinRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tiers': typeof TiersRoute
+  '/blog/dbw': typeof BlogDbwRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/docs': typeof DocsRoute
   '/events': typeof EventsRoute
   '/join': typeof JoinRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tiers': typeof TiersRoute
+  '/blog/dbw': typeof BlogDbwRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/docs': typeof DocsRoute
   '/events': typeof EventsRoute
   '/join': typeof JoinRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tiers': typeof TiersRoute
+  '/blog/dbw': typeof BlogDbwRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/join'
     | '/sitemap.xml'
     | '/tiers'
+    | '/blog/dbw'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/join'
     | '/sitemap.xml'
     | '/tiers'
+    | '/blog/dbw'
   id:
     | '__root__'
     | '/'
@@ -121,12 +132,13 @@ export interface FileRouteTypes {
     | '/join'
     | '/sitemap.xml'
     | '/tiers'
+    | '/blog/dbw'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  BlogRoute: typeof BlogRoute
+  BlogRoute: typeof BlogRouteWithChildren
   DocsRoute: typeof DocsRoute
   EventsRoute: typeof EventsRoute
   JoinRoute: typeof JoinRoute
@@ -192,13 +204,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/dbw': {
+      id: '/blog/dbw'
+      path: '/dbw'
+      fullPath: '/blog/dbw'
+      preLoaderRoute: typeof BlogDbwRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
+
+interface BlogRouteChildren {
+  BlogDbwRoute: typeof BlogDbwRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogDbwRoute: BlogDbwRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  BlogRoute: BlogRoute,
+  BlogRoute: BlogRouteWithChildren,
   DocsRoute: DocsRoute,
   EventsRoute: EventsRoute,
   JoinRoute: JoinRoute,

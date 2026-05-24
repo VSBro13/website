@@ -1,34 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { POSTS, BlogPost } from "@/data/blogPosts";
+import { DBW_POSTS } from "@/data/dbw_blog";
 import { seo } from "@/components/SEO";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/dbw")({
   head: () => ({
     meta: seo({
-      title: "Blog",
-      description: "Community announcements, build logs, and featured projects from OpenBox.",
+      title: "Blog - DBW",
+      description: "Day Before Weekend updates from OpenBox.",
     }),
   }),
-  component: Blog,
+  component: BlogDBW,
 });
 
-function Blog() {
-  return <BlogContent />;
+function BlogDBW() {
+  return <DBWBlogContent />;
 }
 
-export function BlogContent({ filter }: { filter?: string }) {
+export function DBWBlogContent() {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
-
-  const filteredPosts = POSTS.filter(p => {
-    if (!filter) return true;
-    const f = filter.toLowerCase();
-    if (f === 'dbw') {
-      return p.title.toLowerCase().includes('dbw') || p.tag.toLowerCase() === 'dbw';
-    }
-    return p.tag.toLowerCase() === f;
-  }).filter(p => p.tag.toLowerCase() !== 'dbw');
 
   // Sync state with URL query parameter
   useEffect(() => {
@@ -37,7 +28,7 @@ export function BlogContent({ filter }: { filter?: string }) {
       const params = new URLSearchParams(window.location.search);
       const postId = params.get("post");
       if (postId) {
-        const found = POSTS.find((p) => p.id === postId);
+        const found = DBW_POSTS.find((p) => p.id === postId);
         if (found) {
           setSelectedPost(found);
           window.scrollTo(0, 0);
@@ -94,7 +85,7 @@ export function BlogContent({ filter }: { filter?: string }) {
                 gap: "8px"
               }}
             >
-              ← BACK TO UPDATES
+              ← BACK TO DBW
             </button>
           </div>
 
@@ -112,22 +103,22 @@ export function BlogContent({ filter }: { filter?: string }) {
           </h1>
 
           {/* Author info card */}
-          <div 
-            style={{ 
-              display: "flex", 
-              alignItems: "center", 
-              gap: "16px", 
-              borderTop: "1px solid var(--border)", 
-              borderBottom: "1px solid var(--border)", 
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "16px",
+              borderTop: "1px solid var(--border)",
+              borderBottom: "1px solid var(--border)",
               padding: "16px 0",
               marginBottom: "40px"
             }}
           >
-            <div 
-              style={{ 
-                width: "40px", 
-                height: "40px", 
-                background: "var(--green)", 
+            <div
+              style={{
+                width: "40px",
+                height: "40px",
+                background: "var(--green)",
                 color: "#000",
                 display: "flex",
                 alignItems: "center",
@@ -151,11 +142,11 @@ export function BlogContent({ filter }: { filter?: string }) {
               switch (item.type) {
                 case "paragraph":
                   return (
-                    <p 
-                      key={idx} 
-                      style={{ 
-                        fontSize: "16px", 
-                        lineHeight: "1.75", 
+                    <p
+                      key={idx}
+                      style={{
+                        fontSize: "16px",
+                        lineHeight: "1.75",
                         color: "var(--text)",
                         margin: 0
                       }}
@@ -165,14 +156,14 @@ export function BlogContent({ filter }: { filter?: string }) {
                   );
                 case "heading":
                   return (
-                    <h3 
-                      key={idx} 
-                      className="display h3" 
-                      style={{ 
-                        color: "var(--green)", 
-                        marginTop: "24px", 
+                    <h3
+                      key={idx}
+                      className="display h3"
+                      style={{
+                        color: "var(--green)",
+                        marginTop: "24px",
                         marginBottom: "8px",
-                        textTransform: "uppercase" 
+                        textTransform: "uppercase"
                       }}
                     >
                       {item.text}
@@ -180,22 +171,22 @@ export function BlogContent({ filter }: { filter?: string }) {
                   );
                 case "list":
                   return (
-                    <ul 
-                      key={idx} 
-                      style={{ 
-                        paddingLeft: "20px", 
-                        margin: 0, 
-                        display: "flex", 
-                        flexDirection: "column", 
-                        gap: "12px" 
+                    <ul
+                      key={idx}
+                      style={{
+                        paddingLeft: "20px",
+                        margin: 0,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "12px"
                       }}
                     >
                       {item.items.map((li, lidx) => (
-                        <li 
-                          key={lidx} 
-                          style={{ 
-                            fontSize: "15px", 
-                            lineHeight: "1.6", 
+                        <li
+                          key={lidx}
+                          style={{
+                            fontSize: "15px",
+                            lineHeight: "1.6",
                             color: "var(--text)",
                             listStyleType: "square"
                           }}
@@ -207,8 +198,8 @@ export function BlogContent({ filter }: { filter?: string }) {
                   );
                 case "quote":
                   return (
-                    <blockquote 
-                      key={idx} 
+                    <blockquote
+                      key={idx}
                       style={{
                         borderLeft: "3px solid var(--green)",
                         background: "var(--bg-2)",
@@ -231,22 +222,22 @@ export function BlogContent({ filter }: { filter?: string }) {
                   );
                 case "code":
                   return (
-                    <div 
-                      key={idx} 
-                      style={{ 
-                        border: "1px solid var(--border)", 
-                        background: "#050805", 
+                    <div
+                      key={idx}
+                      style={{
+                        border: "1px solid var(--border)",
+                        background: "#050805",
                         margin: "12px 0",
                         position: "relative"
                       }}
                     >
                       {/* Code Block Header */}
-                      <div 
-                        style={{ 
-                          display: "flex", 
-                          justifyContent: "space-between", 
-                          alignItems: "center", 
-                          background: "var(--bg-2)", 
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          background: "var(--bg-2)",
                           padding: "8px 16px",
                           borderBottom: "1px solid var(--border)"
                         }}
@@ -267,10 +258,10 @@ export function BlogContent({ filter }: { filter?: string }) {
                           {copiedIdx === idx ? "COPIED" : "COPY"}
                         </button>
                       </div>
-                      <pre 
-                        style={{ 
-                          margin: 0, 
-                          padding: "20px", 
+                      <pre
+                        style={{
+                          margin: 0,
+                          padding: "20px",
                           overflowX: "auto",
                           fontFamily: "var(--font-mono)",
                           fontSize: "13px",
@@ -296,10 +287,10 @@ export function BlogContent({ filter }: { filter?: string }) {
     <div className="page">
       <header className="page-header">
         <div className="container">
-          <div className="page-header__crumb fade-up">// BLOG</div>
-          <h1 className="display h1 page-header__title fade-up fade-up--1">UPDATES<br/>FROM THE BOX.</h1>
+          <div className="page-header__crumb fade-up">// DBW</div>
+          <h1 className="display h1 page-header__title fade-up fade-up--1">DAY BEFORE<br/>WEEKEND.</h1>
           <p className="page-header__sub fade-up fade-up--2">
-            Announcements, build logs, featured member work. No SEO fluff.
+            Weekly updates from the OpenBox team. Every Friday.
           </p>
         </div>
       </header>
@@ -307,24 +298,23 @@ export function BlogContent({ filter }: { filter?: string }) {
       <section className="section">
         <div className="container">
           <div className="filters">
-            <Link to="/blog" className={`filter ${!filter ? 'filter--active' : ''}`}>ALL</Link>
-            <Link to="/blog/dbw" className={`filter ${filter === 'dbw' ? 'filter--active' : ''}`}>DBW</Link>
+            <Link to="/blog" className={`filter`}>← BACK TO BLOG</Link>
           </div>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
-          {filteredPosts.length === 0 ? (
+          {DBW_POSTS.length === 0 ? (
             <div className="empty">
               <h3>NO POSTS YET.</h3>
               <p>Follow our socials for the first updates.</p>
             </div>
           ) : (
             <div className="card-grid">
-              {filteredPosts.map((p) => (
-                <article 
-                  key={p.id} 
+              {DBW_POSTS.map((p) => (
+                <article
+                  key={p.id}
                   className="card"
                   onClick={() => openPost(p)}
                   style={{ cursor: "pointer" }}
